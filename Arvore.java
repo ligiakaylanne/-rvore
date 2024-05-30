@@ -1,78 +1,117 @@
-import java.util.ArrayList;
-import java.util.List;
-
-class Arvore<T extends Comparable<T>> {
+public class Arvore<T extends Comparable<T>> {
     private Elemento<T> raiz;
+
+    public Arvore() {
+        this.raiz = null;
+    }
+
+    public Arvore(T valor) {
+        this.raiz = new Elemento<>(valor);
+    }
 
     public Elemento<T> getRaiz() {
         return raiz;
     }
 
-    public void adicionar(T valor) {
-        if (raiz == null) {
-            raiz = new Elemento<>(valor);
-        } else {
-            raiz.adicionar(valor);
-        }
+    public static void adicionar(T valor) {
+        T NovoValor = new T(nome,rgm);
+        adicionarRecursivo(this.T);
     }
 
-    public void remover(T valor, Elemento<T> elemento) {
-        // Implementação da remoção
+    private Elemento<T> adicionarRecursivo(Elemento<T> atual, T valor) {
+        if (atual == null) {
+            return new Elemento<>(valor);
+        }
+
+        if (valor.compareTo(atual.getValor()) < 0) {
+            atual.setEsquerda(adicionarRecursivo(atual.getEsquerda(), valor));
+        } else if (valor.compareTo(atual.getValor()) > 0) {
+            atual.setDireita(adicionarRecursivo(atual.getDireita(), valor));
+        }
+
+        return atual;
+    }
+
+    public void remover(T valor, Elemento<T> atual) {
+        raiz = removerRecursivo(raiz, valor);
+    }
+
+    private Elemento<T> removerRecursivo(Elemento<T> atual, T valor) {
+        if (atual == null) {
+            return null;
+        }
+
+        if (valor.equals(atual.getValor())) {
+            if (atual.getEsquerda() == null && atual.getDireita() == null) {
+                return null;
+            }
+
+            if (atual.getDireita() == null) {
+                return atual.getEsquerda();
+            }
+
+            if (atual.getEsquerda() == null) {
+                return atual.getDireita();
+            }
+
+            T menorValor = encontrarMenorValor(atual.getDireita());
+            atual.setValor(menorValor);
+            atual.setDireita(removerRecursivo(atual.getDireita(), menorValor));
+            return atual;
+        }
+
+        if (valor.compareTo(atual.getValor()) < 0) {
+            atual.setEsquerda(removerRecursivo(atual.getEsquerda(), valor));
+            return atual;
+        }
+
+        atual.setDireita(removerRecursivo(atual.getDireita(), valor));
+        return atual;
+    }
+
+    private T encontrarMenorValor(Elemento<T> raiz) {
+        return raiz.getEsquerda() == null ? raiz.getValor() : encontrarMenorValor(raiz.getEsquerda());
     }
 
     public Elemento<T> pesquisar(T valor) {
-        if (raiz != null) {
-            return raiz.pesquisar(valor);
+        return pesquisarRecursivo(raiz, valor);
+    }
+
+    private Elemento<T> pesquisarRecursivo(Elemento<T> atual, T valor) {
+        if (atual == null || valor.equals(atual.getValor())) {
+            return atual;
         }
-        return null;
+
+        if (valor.compareTo(atual.getValor()) < 0) {
+            return pesquisarRecursivo(atual.getEsquerda(), valor);
+        } else {
+            return pesquisarRecursivo(atual.getDireita(), valor);
+        }
     }
 
     public void esvaziar() {
         raiz = null;
     }
 
-    public void exibir(Elemento<T> elemento, String tipo) {
-        List<T> elementos = new ArrayList<>();
-        switch (tipo) {
-            case "inordem":
-                inOrdem(elemento, elementos);
-                break;
-            case "preordem":
-                preOrdem(elemento, elementos);
-                break;
-            case "posordem":
-                posOrdem(elemento, elementos);
-                break;
-            default:
-                System.out.println("Tipo de exibição inválido.");
-                return;
-        }
-        for (T e : elementos) {
-            System.out.println(e);
-        }
-    }
-
-    private void inOrdem(Elemento<T> elemento, List<T> elementos) {
-        if (elemento != null) {
-            inOrdem(elemento.getEsquerda(), elementos);
-            elementos.add(elemento.getValor());
-            inOrdem(elemento.getDireita(), elementos);
-        }
-    }
-
-    private void preOrdem(Elemento<T> elemento, List<T> elementos) {
-        if (elemento != null) {
-            elementos.add(elemento.getValor());
-            preOrdem(elemento.getEsquerda(), elementos);
-            preOrdem(elemento.getDireita(), elementos);
-        }
-    }
-
-    private void posOrdem(Elemento<T> elemento, List<T> elementos) {
-        if (elemento != null) {
-            posOrdem(elemento.getEsquerda(), elementos);
-            posOrdem(elemento.getDireita(), elementos);
-            elementos.add(elemento.getValor());
+    public void exibir(Elemento<T> atual, String tipo) {
+        if (atual != null) {
+            switch (tipo) {
+                case "preordem":
+                    System.out.println(atual.getValor());
+                    exibir(atual.getEsquerda(), tipo);
+                    exibir(atual.getDireita(), tipo);
+                    break;
+                case "inordem":
+                    exibir(atual.getEsquerda(), tipo);
+                    System.out.println(atual.getValor());
+                    exibir(atual.getDireita(), tipo);
+                    break;
+                case "posordem":
+                    exibir(atual.getEsquerda(), tipo);
+                    exibir(atual.getDireita(), tipo);
+                    System.out.println(atual.getValor());
+                    break;
+            }
         }
     }
 }

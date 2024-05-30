@@ -5,6 +5,8 @@ class Elemento<T extends Comparable<T>> {
 
     public Elemento(T valor) {
         this.valor = valor;
+        this.direita = null;
+        this.esquerda= null; 
     }
 
     public T getValor() {
@@ -48,5 +50,20 @@ class Elemento<T extends Comparable<T>> {
             }
         }
         return null;
+    }
+
+    public void setDireita(Elemento<T> removerRecursivo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setDireita'");
+    }
+
+    public void setValor(T menorValor) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setValor'");
+    }
+
+    public void setEsquerda(Elemento<T> removerRecursivo) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setEsquerda'");
     }
 }

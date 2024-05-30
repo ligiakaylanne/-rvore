@@ -3,8 +3,13 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+        // Inicializar a árvore com alguns nós
         Arvore<Aluno> arvore = new Arvore<>();
-        
+        Arvore.adicionar(new Aluno("98452345", "João da Costa - RAIZ"));
+        Arvore.adicionar(new Aluno("67237834", "Maria da Penha"));
+        Arvore.adicionar(new Aluno("99234512", "Carlos Luiz do Nascimento"));
+
         while (true) {
             System.out.println("Menu de Opções:");
             System.out.println("1- Inserir nó");
@@ -13,29 +18,29 @@ public class Main {
             System.out.println("4- Esvaziar nó");
             System.out.println("5- Exibir árvore");
             System.out.println("6- Sair");
-            
+
             int opcao = scanner.nextInt();
             scanner.nextLine(); // Limpar buffer
-            
+
             switch (opcao) {
                 case 1:
                     System.out.print("Digite o RGM: ");
                     String rgm = scanner.nextLine();
                     System.out.print("Digite o nome: ");
                     String nome = scanner.nextLine();
-                    arvore.adicionar(new Aluno(rgm, nome));
+                    arvore.adicionar(new Aluno(nome, rgm));
                     break;
 
                 case 2:
                     System.out.print("Digite o RGM para remover: ");
                     rgm = scanner.nextLine();
-                    arvore.remover(new Aluno(rgm, null), arvore.getRaiz());
+                    arvore.remover(new Aluno(null, rgm), arvore.getRaiz());
                     break;
 
                 case 3:
                     System.out.print("Digite o RGM para pesquisar: ");
                     rgm = scanner.nextLine();
-                    Elemento<Aluno> encontrado = arvore.pesquisar(new Aluno(rgm, null));
+                    Elemento<Aluno> encontrado = arvore.pesquisar(new Aluno(null, rgm));
                     if (encontrado != null) {
                         System.out.println("Aluno encontrado: " + encontrado.getValor());
                     } else {
@@ -45,7 +50,7 @@ public class Main {
 
                 case 4:
                     arvore.esvaziar();
-                    System.out.println("Árvore esvaziada."); 
+                    System.out.println("Árvore esvaziada.");
                     break;
 
                 case 5:
