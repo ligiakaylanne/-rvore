@@ -6,16 +6,16 @@ public class Main {
 
         // Inicializar a árvore com alguns nós
         Arvore<Aluno> arvore = new Arvore<>();
-        Arvore.adicionar(new Aluno("98452345", "João da Costa - RAIZ"));
-        Arvore.adicionar(new Aluno("67237834", "Maria da Penha"));
-        Arvore.adicionar(new Aluno("99234512", "Carlos Luiz do Nascimento"));
+        arvore.adicionar(new Aluno("98452345", "João da Costa - RAIZ"));
+        arvore.adicionar(new Aluno("67237834", "Maria da Penha"));
+        arvore.adicionar(new Aluno("99234512", "Carlos Luiz do Nascimento"));
 
         while (true) {
             System.out.println("Menu de Opções:");
             System.out.println("1- Inserir nó");
             System.out.println("2- Remover nó");
             System.out.println("3- Pesquisar nó");
-            System.out.println("4- Esvaziar nó");
+            System.out.println("4- Esvaziar árvore");
             System.out.println("5- Exibir árvore");
             System.out.println("6- Sair");
 
@@ -28,19 +28,19 @@ public class Main {
                     String rgm = scanner.nextLine();
                     System.out.print("Digite o nome: ");
                     String nome = scanner.nextLine();
-                    arvore.adicionar(new Aluno(nome, rgm));
+                    arvore.adicionar(new Aluno(rgm, nome));
                     break;
 
                 case 2:
                     System.out.print("Digite o RGM para remover: ");
                     rgm = scanner.nextLine();
-                    arvore.remover(new Aluno(null, rgm), arvore.getRaiz());
+                    arvore.remover(new Aluno(rgm, null));
                     break;
 
                 case 3:
                     System.out.print("Digite o RGM para pesquisar: ");
                     rgm = scanner.nextLine();
-                    Elemento<Aluno> encontrado = arvore.pesquisar(new Aluno(null, rgm));
+                    Elemento<Aluno> encontrado = arvore.pesquisar(new Aluno(rgm, null));
                     if (encontrado != null) {
                         System.out.println("Aluno encontrado: " + encontrado.getValor());
                     } else {

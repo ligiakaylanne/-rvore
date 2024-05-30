@@ -13,9 +13,8 @@ public class Arvore<T extends Comparable<T>> {
         return raiz;
     }
 
-    public static void adicionar(T valor) {
-        T NovoValor = new T(nome,rgm);
-        adicionarRecursivo(this.T);
+    public void adicionar(T valor) {
+        raiz = adicionarRecursivo(raiz, valor);
     }
 
     private Elemento<T> adicionarRecursivo(Elemento<T> atual, T valor) {
@@ -32,7 +31,7 @@ public class Arvore<T extends Comparable<T>> {
         return atual;
     }
 
-    public void remover(T valor, Elemento<T> atual) {
+    public void remover(T valor) {
         raiz = removerRecursivo(raiz, valor);
     }
 
@@ -62,10 +61,10 @@ public class Arvore<T extends Comparable<T>> {
 
         if (valor.compareTo(atual.getValor()) < 0) {
             atual.setEsquerda(removerRecursivo(atual.getEsquerda(), valor));
-            return atual;
+        } else {
+            atual.setDireita(removerRecursivo(atual.getDireita(), valor));
         }
 
-        atual.setDireita(removerRecursivo(atual.getDireita(), valor));
         return atual;
     }
 
@@ -113,5 +112,41 @@ public class Arvore<T extends Comparable<T>> {
                     break;
             }
         }
+    }
+}
+
+class Elemento<T> {
+    private T valor;
+    private Elemento<T> esquerda;
+    private Elemento<T> direita;
+
+    public Elemento(T valor) {
+        this.valor = valor;
+        this.esquerda = null;
+        this.direita = null;
+    }
+
+    public T getValor() {
+        return valor;
+    }
+
+    public void setValor(T valor) {
+        this.valor = valor;
+    }
+
+    public Elemento<T> getEsquerda() {
+        return esquerda;
+    }
+
+    public void setEsquerda(Elemento<T> esquerda) {
+        this.esquerda = esquerda;
+    }
+
+    public Elemento<T> getDireita() {
+        return direita;
+    }
+
+    public void setDireita(Elemento<T> direita) {
+        this.direita = direita;
     }
 }
