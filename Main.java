@@ -6,9 +6,9 @@ public class Main {
 
         // Inicializar a árvore com alguns nós
         Arvore<Aluno> arvore = new Arvore<>();
-        arvore.adicionar(new Aluno("98452345", "João da Costa - RAIZ"));
-        arvore.adicionar(new Aluno("67237834", "Maria da Penha"));
-        arvore.adicionar(new Aluno("99234512", "Carlos Luiz do Nascimento"));
+        Arvore.adicionar(new Aluno("98452345", "João da Costa - RAIZ"));
+        Arvore.adicionar(new Aluno("67237834", "Maria da Penha"));
+        Arvore.adicionar(new Aluno("99234512", "Carlos Luiz do Nascimento"));
 
         while (true) {
             System.out.println("Menu de Opções:");
